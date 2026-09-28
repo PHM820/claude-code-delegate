@@ -18,6 +18,11 @@ Windows는 `%USERPROFILE%\.claude\skills\`, macOS/Linux는 `~/.claude/skills/`.
 두 스킬 모두 `disable-model-invocation: true`로 설정돼 있어, Claude가 스스로 호출하지 않고
 사용자가 `/delegate <작업>` 또는 `/delegate-all <설명>`으로 명시적으로 실행해야 한다.
 
+**알려진 함정**: SKILL.md의 `model: claude-opus-5-5` 필드는 그 스킬을 호출한 응답 한 번에만
+적용되고, 이어지는 사용자 메시지부터는 세션 모델(사용자가 앱에서 고른 모델)로 돌아간다(실측
+확인, Claude Code 공식 동작). 관리자를 계속 Opus로 유지하려면 스킬이 뜨는 승인 확인 메시지가
+안내하는 대로, **승인하기 전에 앱의 모델 선택기에서 직접 Opus를 골라야** 한다.
+
 ## 구성
 
 - **`/delegate`** — 작업 하나를 관리자·작업자로 분해 실행. 작업자는 git worktree로 격리되고,
