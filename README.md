@@ -31,10 +31,12 @@ Windows는 `%USERPROFILE%\.claude\skills\`, macOS/Linux는 `~/.claude/skills/`.
 
 ## 구성
 
-- **`/delegate`** — 작업 하나를 관리자·작업자로 분해 실행. 작업자는 git worktree로 격리되고,
-  결과는 patch로 병합된다. 승인 후 시작, 재시도 예산(첫 시도 무제한 + 재시도 4회) 안에서 동작.
-- **`/delegate-all`** — 프로젝트 전체 단위: 발견 → 기획(승인) → 마일스톤 루프(승인) → 완료를
-  상태 파일(`docs/delegate-all/state.json`)로 관리해 세션이 끊겨도 이어할 수 있다.
+- **`/delegate`** — 작업 하나를 관리자·작업자로 분해해 실행한다. 작업자를 git worktree로
+  격리해 돌리고, 끝나면 결과를 patch로 병합한다. 실패하면 재시도 예산(첫 시도 무제한 + 재시도
+  4회) 안에서 관리자가 원인을 보고 다시 붙인다. 승인 후 시작.
+- **`/delegate-all`** — 프로젝트 전체 단위로 발견 → 기획(승인) → 마일스톤 루프(승인) → 완료를
+  이어간다. 진행 상태를 파일(`docs/delegate-all/state.json`)에 남겨 세션이 끊겨도 이어서 돌릴
+  수 있다.
 
 ## 검증(verify) 동작 방식
 
