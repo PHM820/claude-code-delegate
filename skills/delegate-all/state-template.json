@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "project": "<프로젝트 이름>",
+  "phase": "discovery",
+  "_phase_values": "discovery | planning | milestone | review | awaiting-approval | done",
+  "current_milestone": null,
+  "scale_mode": "normal",
+  "speed": "fast",
+  "_speed_values": "fast (동시 3명) | slow (동시 1명) — 야간 진행은 항상 slow",
+  "night": { "retry_limit_per_night": 6, "retry_opus_limit_per_night": 2, "retry_used_tonight": 0 },
+  "_scale_mode_values": "normal | large (SKILL.md 10장)",
+  "milestone_leads": {},
+  "git": {
+    "is_repo": true,
+    "auto_commit_allowed": true,
+    "milestone_base": null,
+    "milestone_commits": {}
+  },
+  "budget": {
+    "retry_limit": 12,
+    "retry_opus_limit": 4,
+    "retry_used": 0,
+    "retry_opus_used": 0,
+    "extra_blocks": 0,
+    "first_attempts": 0,
+    "used_by_model": { "haiku": 0, "sonnet": 0, "opus": 0 },
+    "milestone_leads": 0,
+    "manager_rescues": 0
+  },
+  "totals_by_model": { "haiku": 0, "sonnet": 0, "opus": 0 },
+  "approvals": [],
+  "pending_user_decisions": [],
+  "paused_by_user": false,
+  "paused_by_night_mode": false,
+  "updated_at": null
+}
