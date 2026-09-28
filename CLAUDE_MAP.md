@@ -8,7 +8,7 @@ Claude Code만으로 만드는 관리자(Opus)-작업자(Sonnet/Haiku) 계층형
 | 기능 | 경로 | 설명 |
 |---|---|---|
 | /delegate 스킬 | `skills/delegate/SKILL.md` | 작업 하나를 관리자·작업자로 분해 실행. 작업자는 git worktree로 격리, 결과는 patch로 병합. 직접처리 A/B/C 기준, 승인 후 시작, 예산(첫 시도 무제한+재시도 4회) |
-| /delegate-all 스킬 | `skills/delegate-all/SKILL.md` | 프로젝트 전체 단위: 발견→기획(승인)→마일스톤 루프(승인)→완료, 상태 파일로 세션 넘어 이어하기 |
+| /delegate-all 스킬 | `skills/delegate-all/SKILL.md` | v0.11. 프로젝트 전체 단위: 발견→기획(승인)→마일스톤 루프(승인)→완료, 상태 파일로 세션 넘어 이어하기. harness는 **선택적 연동**(있으면 verify.cmd 생성·활용, 없어도 등급 2(즉석 검증 명령)·등급 3(수동 확인 안내)로 동작) — harness 저장소가 필수 의존이 아님 |
 | /delegate-all 템플릿 | `skills/delegate-all/{plan,backlog,report}-template.md`, `state-template.json` | 대상 프로젝트의 `docs/delegate-all/`에 생성되는 파일의 틀 |
 | 작업자 템플릿 (참고용, 미사용) | `agents/worker.md`, `worker-light.md` | 고정 작업자 파일 방식 — 즉석 편성 방식으로 대체됨 |
 | 설계 조사 문서 | `docs/01~05` | 이 파이프라인이 이 설계에 도달한 조사·정정 과정과 실측 근거. 01→02→03 순서로 최초 조사, 정정, 채택된 설계. 04는 실사용 효과 점검. 05는 보류 중인 Codex 작업자 전환 설계 |
