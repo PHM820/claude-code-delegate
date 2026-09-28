@@ -1,9 +1,15 @@
 # claude-code-delegate
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Claude Code만으로 만드는 관리자(Opus)-작업자(Sonnet/Haiku) 계층형 코딩 위임 파이프라인.
 비싼 상위 모델은 계획·판정·구원만 맡고, 실제 코딩은 하위 모델 작업자에게 맡겨 비용을 줄이려는
 목적으로 설계했다. 작업 단위 스킬(`/delegate`)과 프로젝트 단위 스킬(`/delegate-all`) 두 개로
 구성된다.
+
+git worktree로 작업자를 격리하고 결과는 patch로 병합하기 때문에, 관리자 세션과 원본 저장소는
+작업자가 무슨 짓을 하든 안전하다. 검증은 자체 구현 없이 프로젝트의 `verify.cmd` 종료 코드에
+맡긴다 — 있으면 그걸 쓰고, 없으면 즉석 판단으로 폴백한다.
 
 ## 설치
 
