@@ -28,7 +28,7 @@ model: claude-opus-5-5
 | `backlog-archive.md`, `log-archive.md` | 끝난 마일스톤의 Task·오래된 기록 보관 (이어하기 때 읽지 않음) |
 그리고 프로젝트 루트의 `.claude/verify.cmd` (기본 검증 명령 한 줄).
 
-작업 단위 실행 규칙은 `~/.claude/skills/delegate/SKILL.md`를 **Read로 읽어** 그 1~8장을 따른다 (이 스킬 안에서 /delegate를 명령어로 호출하지 않는다). 단, 아래 "9. /delegate 규칙과 다른 점"이 우선한다.
+작업 단위 실행 규칙은 `~/.claude/skills/delegate/SKILL.md`를 **Read로 읽어** 그 1~8장을 따르고, 엔진이 `codex`면 **10장(Codex 엔진)도 함께** 따른다 (이 스킬 안에서 /delegate를 명령어로 호출하지 않는다). 단, 아래 "9. /delegate 규칙과 다른 점"이 우선한다.
 
 ---
 
@@ -152,7 +152,7 @@ model: claude-opus-5-5
 ### 4-2. 배치 실행 (반복)
 1. **준비된 Task 고르기**: 선행 Task가 모두 done이고 status가 todo인 것.
 2. **배치 구성**: 수정 파일이 서로 겹치지 않는 Task를 `speed`가 `fast`면 최대 3개, `slow`면 1개씩 묶는다. 겹치면 다음 배치로.
-3. 각 Task를 `/delegate` 규칙 1~8장대로 처리한다. 단 9장의 차이점을 적용.
+3. 각 Task를 `/delegate` 규칙 1~8장대로 처리한다 (`state.engine`이 `codex`면 작업자 실행·사다리는 10장). 단 9장의 차이점을 적용.
    - 작업 지시서에 plan.md의 **공통 규칙 섹션**과 해당 Task의 완료 기준을 항상 포함한다.
 4. **배치가 끝날 때마다 체크포인트**:
    - backlog: status(`todo/doing/done/blocked/needs-user`), 시도 횟수, 사용 모델, 메모
@@ -276,7 +276,7 @@ model: claude-opus-5-5
 ### 10-3. 리드 운영 규칙
 - **리드는 Opus 서브에이전트**(`model: "opus"`)로, 그 마일스톤 동안만 존재한다. 끝나면 보고서를 내고 종료. 다음 마일스톤에는 새 리드.
 - 영역이 2개 이상이면 영역별 리드를 최대 2명까지 둘 수 있다. 단 리드끼리 **수정 파일이 겹치지 않게** PM이 Task를 미리 나눠 준다.
-- 리드에게 주는 것: plan.md의 목표·공통 규칙·외부 패키지 목록, 이 마일스톤의 backlog 부분, 완료 기준, 남은 예산, 그리고 "`~/.claude/skills/delegate/SKILL.md`를 읽고 2~5·7장을 따를 것". **엔진이 `codex`면** `codex-detect` 출력(`exe`·`tiers`)을 함께 넘기고 "작업자는 `/delegate` 10장 절차(`codex-run.ps1`)로 띄울 것, LIMIT이면 멈추고 보고"라고 적는다.
+- 리드에게 주는 것: plan.md의 목표·공통 규칙·외부 패키지 목록, 이 마일스톤의 backlog 부분, 완료 기준, 남은 예산, 그리고 "`~/.claude/skills/delegate/SKILL.md`를 읽고 2~5·7장을 따를 것 (엔진이 `codex`면 10장도)". **엔진이 `codex`면** `codex-detect` 출력(`exe`·`tiers`)을 함께 넘기고 "작업자는 `/delegate` 10장 절차(`codex-run.ps1`)로 띄울 것, LIMIT이면 멈추고 보고"라고 적는다.
 - 리드가 하는 것: 작업자 편성, 작업 지시, 판정, 에스컬레이션 사다리, 합치기, 자동 검증, backlog의 해당 부분 갱신.
 - **리드가 하지 않는 것** (PM에게 올림): 사용자 질문, 계획·범위 변경, 외부 패키지 추가, 커밋, 되돌리기, 설계 점검 최종 판단.
   - 판단이 필요한 Task는 `needs-user`로 표시하고 다른 Task를 계속한다.
