@@ -1,0 +1,9 @@
+{
+  "tiers": {
+    "light":  { "claude": "haiku",  "model": "gpt-6-luna",  "effort": "low",    "fallback": "gpt-5.6-luna" },
+    "normal": { "claude": "sonnet", "model": "gpt-6.1-sol", "effort": "medium", "fallback": "gpt-6-sol" },
+    "hard":   { "claude": "opus",   "model": "gpt-6.1-sol", "effort": "high",   "fallback": "gpt-6-sol" }
+  },
+  "sandbox": "workspace-write",
+  "timeout_min": 25
+}

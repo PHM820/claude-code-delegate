@@ -8,6 +8,7 @@ Claude Code만으로 만드는 관리자(Opus)-작업자(Sonnet/Haiku) 계층형
 | 기능 | 경로 | 설명 |
 |---|---|---|
 | /delegate 스킬 | `skills/delegate/SKILL.md` | 작업 하나를 관리자·작업자로 분해 실행. 작업자는 git worktree로 격리, 결과는 patch로 병합. 직접처리 A/B/C 기준, 승인 후 시작, 예산(첫 시도 무제한+재시도 4회) |
+| Codex 엔진 (작업자) | `skills/delegate/{engine.json,codex-detect.ps1,codex-run.ps1,codex-report.schema.json}` | Codex가 있으면 작업자를 Codex로, 없으면 Claude로 자동 전환. `engine.json`=등급→모델 표, `codex-detect.ps1`=설치·로그인·모델 확인(JSON 한 줄), `codex-run.ps1`=작업자 1명 실행+세 신호 판정(PASS/FAIL/LIMIT), 스키마=작업자 리포트 형식. 절차는 `skills/delegate/SKILL.md` 2장·10장 |
 | /delegate-all 스킬 | `skills/delegate-all/SKILL.md` | v0.11. 프로젝트 전체 단위: 발견→기획(승인)→마일스톤 루프(승인)→완료, 상태 파일로 세션 넘어 이어하기. harness는 **선택적 연동**(있으면 verify.cmd 생성·활용, 없어도 등급 2(즉석 검증 명령)·등급 3(수동 확인 안내)로 동작) — harness 저장소가 필수 의존이 아님 |
 | /delegate-all 템플릿 | `skills/delegate-all/{plan,backlog,report}-template.md`, `state-template.json` | 대상 프로젝트의 `docs/delegate-all/`에 생성되는 파일의 틀 |
 | 작업자 템플릿 (참고용, 미사용) | `agents/worker.md`, `worker-light.md` | 고정 작업자 파일 방식 — 즉석 편성 방식으로 대체됨 |

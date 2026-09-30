@@ -1,4 +1,19 @@
-# Codex 작업자 전환 설계 (보류 — Codex 구독 시 적용)
+# Codex 작업자 전환 설계 (구현 완료 2026-09-30 — 아래 설계 원문 + 실측 정정)
+
+> **구현 결과 요약 (2026-09-30, codex-cli 0.159.2, Plus 구독):** `/delegate` v0.12·`/delegate-all` v0.12에 반영.
+> 설계 원문(아래)에서 **실제 구현과 달라진 점:**
+> 1. **모드 선택(`claude`/`mixed`) 폐지 → 자동 감지.** `codex-detect.ps1`이 Codex가 있으면 Codex 엔진, 없으면 Claude 엔진. `--claude`로만 강제. (2장 전체 대체)
+> 2. `codex exec`에 **`-a never` 플래그는 없다** (exec는 원래 비대화형). `--full-auto`도 쓰지 않음. 샌드박스는 `-s workspace-write`.
+> 3. **`resume`에는 `-C`·`-s`가 없다** → 프로세스 cwd로 작업 폴더를 지정하고 `-c sandbox_mode="..."`로 샌드박스를 지정. 이어하기 때 `-m`·추론 강도 변경은 됨 (실측).
+> 4. **리포트 스키마는 strict** — 모든 속성이 `required`여야 한다 (4-3의 스키마는 `blocker` 누락으로 400 거부됨). `codex-report.schema.json`에서 수정.
+> 5. **PowerShell 5.1 파이프로 지시서를 넘기면 한글이 깨진다** → `cmd`의 `<` 리다이렉트로 전달 (`codex-run.ps1`).
+> 6. **Codex 샌드박스에서 사용자 폴더 아래 Python 실행이 "액세스 거부"**, PATH에 python 없음 → 작업자 자체 검증은 참고용, 관리자가 직접 검증 (5장 원칙이 필수임이 확인됨). 지시서에 [샌드박스] 줄 추가.
+> 7. **3장 모델 표 확정:** luna(가벼움) / 6.1-sol(일반·어려움). 이 계정에서 luna·6.1-sol·astra·6-sol 실호출 성공 확인했으나 **astra는 사용자 결정으로 쓰지 않음** — 상위는 Claude Opus 5.5 / Sonnet 5.5만. 기본 추론 강도는 low~high만 사용(`max`·`ultra` 제외).
+> 8. 4-1 대안(공식 플러그인)은 비교하지 않고 `codex exec` 직접 호출로 확정 (플래그 전부 제어 가능, 서브에이전트에서도 Bash로 동일 호출).
+> 9. 세 신호 판정 + 작업자 파일 목록 검증은 `codex-run.ps1`에 통합 (`changed_files`는 리포트 대신 `git status`로 계산).
+> 10. **미검증:** 한도 도달 시 Codex가 내는 실제 메시지 문구, 병렬 다중 Codex 작업자, 서브에이전트(마일스톤 리드) 안에서의 실행, 가벼움 등급의 실제 품질.
+>
+> 구현 파일: `skills/delegate/{engine.json, codex-detect.ps1, codex-run.ps1, codex-report.schema.json}` + 두 SKILL.md.
 
 > 작성: 2026-09-25 · 상태: **설계만**. 설치된 `/delegate`(v0.7), `/delegate-all`(v0.5)은 구독 전까지 변경하지 않는다.
 > 바탕: 02 문서(Codex 연동 조사), 03 문서(Claude 단독 구조), 04 보고서(실측)

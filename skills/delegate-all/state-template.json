@@ -5,6 +5,8 @@
   "_phase_values": "discovery | planning | milestone | review | awaiting-approval | done",
   "current_milestone": null,
   "scale_mode": "normal",
+  "engine": "claude",
+  "_engine_values": "codex | claude — 세션마다 codex-detect로 다시 판정해 갱신 (delegate SKILL.md 2장 엔진 선택). 없으면 claude",
   "speed": "fast",
   "_speed_values": "fast (동시 3명) | slow (동시 1명) — 야간 진행은 항상 slow",
   "night": { "retry_limit_per_night": 6, "retry_opus_limit_per_night": 2, "retry_used_tonight": 0 },
@@ -24,6 +26,7 @@
     "extra_blocks": 0,
     "first_attempts": 0,
     "used_by_model": { "haiku": 0, "sonnet": 0, "opus": 0 },
+    "_used_by_model_note": "Codex 엔진이면 사용한 모델 이름(gpt-6-luna, gpt-6.1-sol 등)을 키로 추가해 센다. retry_opus_* 는 Codex 엔진에서도 사다리 3단계의 Claude 상위 모델 구원 호출 한도다",
     "milestone_leads": 0,
     "manager_rescues": 0
   },
